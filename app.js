@@ -27,8 +27,13 @@ const Seed = mongoose.model('Seed', seedSchema);
 
 
 app.get('/seeds', async (req, res) => {
-  const seeds = await Seed.find();
-  res.json(seeds);
+  try {
+    const seeds = await Seed.find();
+    res.json(seeds);
+  } catch (error) {
+    console.error('Error fetching seeds:', error);
+    res.status(500).send('Server Error');
+  }
 });
 
 app.listen(port, () => {
