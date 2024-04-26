@@ -6,7 +6,7 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 
 
-mongoose.connect('mongodb://localhost:27017/seeddb', {
+mongoose.connect('mongodb+srv://elliesgood00:12345@cluster0.ipa67xl.mongodb.net/', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
