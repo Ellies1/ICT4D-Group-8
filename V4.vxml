@@ -139,12 +139,9 @@
         <field name="seedChoice">
             <prompt>
                 Please select one of the following seeds. 
-            <enumerate>
-                <item expr="seedData[0].name">For No. 1 <value expr="seedData[0].name"/>, please press 1.</item>
-                <item expr="seedData[1].name">For No. 2 <value expr="seedData[1].name"/>, please press 2.</item>
-                <item expr="seedData[2].name">For No. 3 <value expr="seedData[2].name"/>, please press 3.</item>
-               
-            </enumerate>
+                For No. 1 <value expr="seedData[0].name"/>, please press 1.
+                For No. 2 <value expr="seedData[1].name"/>, please press 2.
+                For No. 3 <value expr="seedData[2].name"/>, please press 3.
             </prompt>
             <grammar src="builtin:dtmf/digits" type="application/grammar-xml"/>
         </field>
