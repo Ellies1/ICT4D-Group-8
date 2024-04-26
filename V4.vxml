@@ -135,7 +135,7 @@
     </form>
 
     <form id="SeedSelection">
-        <data name="seedData" src="https://76af-80-114-144-36.ngrok-free.app/seeds"/>
+        <data name="seedData" src="https://peaceful-basin-39224-6cbcd8a1bd04.herokuapp.com/seeds"/>
         <field name="seedChoice">
             <prompt>
                 Please select one of the following seeds. 
