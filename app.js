@@ -8,7 +8,8 @@ app.use(express.json());
 
 mongoose.connect('mongodb+srv://elliesgood00:12345@cluster0.ipa67xl.mongodb.net/', {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  ssl: true
 });
 
 const db = mongoose.connection;
