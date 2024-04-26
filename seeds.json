@@ -1,0 +1,14 @@
+[
+  {
+      "name": "Sorghum",
+      "description": "A versatile crop that can be used for grain, fiber, and fodder."
+  },
+  {
+      "name": "Corn",
+      "description": "Widely grown and consumed all over the world."
+  },
+  {
+      "name": "Peanuts",
+      "description": "A legume crop grown mainly for its edible seeds."
+  }
+]

@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.1">
+
+    <form id="LanguageSelection">
+        <field name="languageChoice">
+            <prompt xml:lang="fr-fr">
+                Pour le français, appuyez sur 1.
+            </prompt>
+            <prompt xml:lang="en-US">
+                For English, press 2.
+            </prompt>
+            <grammar src="builtin:dtmf/digits" type="application/grammar-xml"/>
+        </field>
+        
+        <filled>
+            <if cond="languageChoice == '1'">
+                <goto next="#MainMenu_fr"/>
+            <else/>
+                <goto next="#MainMenu_en"/>
+            </if>
+        </filled>
+    </form>
+
+    <form id="MainMenu_fr" xml:lang="fr-fr">
+        <block>
+            <prompt>
+                Bienvenue dans le système de vote sur la qualité des semences de Mali.
+            </prompt>
+        </block>
+
+        <field name="choice">
+            <prompt>
+                Si vous voulez voter, appuyez sur 1. Si vous voulez donner un avis, appuyez sur 2.
+            </prompt>
+            <grammar src="builtin:dtmf/digits" type="application/grammar-xml"/>
+        </field>
+
+        <filled>
+            <if cond="choice == '1'">
+                <goto next="#SeedSelection_fr"/>
+            <elseif cond="choice == '2'"/>
+                <goto next="#Feedback_fr"/>
+            </if>
+        </filled>
+    </form>
+
+    <form id="SeedSelection_fr" xml:lang="fr-fr">
+        <field name="seedChoice">
+            <prompt>
+                Veuillez choisir parmi les semences suivantes. Pour le sorgho n°1, appuyez sur 1. Pour le maïs n°2, appuyez sur 2. Pour les arachides n°3, appuyez sur 3.
+            </prompt>
+            <grammar src="builtin:dtmf/digits" type="application/grammar-xml"/>
+        </field>
+
+        <filled>
+            <if cond="seedChoice == '1'">
+                <assign name="selectedSeedName" expr="'sorgho'"/>
+            <elseif cond="seedChoice == '2'"/>
+                <assign name="selectedSeedName" expr="'maïs'"/>
+            <else/>
+                <assign name="selectedSeedName" expr="'arachides'"/>
+            </if>
+            <goto next="#RatingForm_fr"/>
+        </filled>
+    </form>
+
+    <form id="RatingForm_fr" xml:lang="fr-fr">
+        <field name="rating">
+            <prompt>
+                Veuillez évaluer la qualité de la semence <value expr="selectedSeedName"/> de 1 à 9.
+            </prompt>
+            <grammar src="builtin:dtmf/digits" type="application/grammar-xml"/>
+
+            <filled>
+                <prompt>
+                    Vous avez évalué <value expr="selectedSeedName"/> pour <value expr="rating"/> points.
+                </prompt>
+                <goto next="#ContinueVotingField_fr"/>
+            </filled>
+        </field>
+
+        <field name="ContinueVotingField_fr">
+            <prompt>
+                Appuyez sur 1 pour continuer à voter et évaluer, et sur 0 pour terminer le vote.
+            </prompt>
+            <grammar src="builtin:dtmf/digits" type="application/grammar-xml"/>
+
+            <filled>
+                <if cond="ContinueVotingField == '1'">
+                    <goto next="#SeedSelection_fr"/>
+                <else/>
+                    <prompt>Merci pour votre vote, au revoir.</prompt>
+                    <disconnect/>
+                </if>
+            </filled>
+        </field>
+    </form>
+
+    <form id="Feedback_fr" xml:lang="fr-fr">
+        <record name="feedback" beep="true" dtmfterm="#" finalsilence="1000ms" maxtime="60s">
+            <prompt>
+                Veuillez donner vos précieuses opinions et appuyez sur la touche dièse pour terminer.
+            </prompt>
+        </record>
+        <filled>
+            <prompt>
+                Merci pour votre avis, nous vous souhaitons une vie heureuse, au revoir.
+            </prompt>
+            <disconnect/>
+        </filled>
+    </form>
+
+   
+   <form id="MainMenu_en">
+        <block>
+            <prompt>
+                Welcome to the Mali seed quality voting system.
+            </prompt>
+        </block>
+
+        <field name="choice">
+            <prompt>
+                If you want to vote, please press 1. If you want to give feedback, press 2.
+            </prompt>
+            <grammar src="builtin:dtmf/digits" type="application/grammar-xml"/>
+        </field>
+
+        <filled>
+            <if cond="choice == '1'">
+                <goto next="#SeedSelection"/>
+                <elseif cond="choice == '2'"/>
+                <goto next="#Feedback"/>
+            </if>
+        </filled>
+    </form>
+
+    <form id="SeedSelection">
+        <data name="seedData" src="https://76af-80-114-144-36.ngrok-free.app/seeds"/>
+        <field name="seedChoice">
+            <prompt>
+                Please select one of the following seeds. 
+            <enumerate>
+                <item expr="seedData[0].name">For No. 1 <value expr="seedData[0].name"/>, please press 1.</item>
+                <item expr="seedData[1].name">For No. 2 <value expr="seedData[1].name"/>, please press 2.</item>
+                <item expr="seedData[2].name">For No. 3 <value expr="seedData[2].name"/>, please press 3.</item>
+               
+            </enumerate>
+            </prompt>
+            <grammar src="builtin:dtmf/digits" type="application/grammar-xml"/>
+        </field>
+
+        <filled>
+            <if cond="seedChoice == '1'">
+                <assign name="selectedSeedName" expr="'sorghum'"/>
+                <elseif cond="seedChoice == '2'"/>
+                <assign name="selectedSeedName" expr="'corn'"/>
+                <else/>
+                <assign name="selectedSeedName" expr="'peanuts'"/>
+            </if>
+            <goto next="#RatingForm"/>
+        </filled>
+    </form>
+
+    <form id="RatingForm">
+        <field name="rating">
+            <prompt>
+            Please rate the quality of this seed <value expr="selectedSeedName"/>
+ from 1 to 9.
+            </prompt>
+            <grammar src="builtin:dtmf/digits" type="application/grammar-xml"/>
+
+            <filled>
+                <prompt>
+                You rated <value expr="selectedSeedName"/>
+ for <value expr="rating"/>
+ points.
+            </prompt>
+            <goto next="#ContinueVotingField"/>
+        </filled>
+    </field>
+
+    <field name="ContinueVotingField">
+        <prompt>
+            Please press 1 to continue voting and score, and press 0 to end voting.
+        </prompt>
+        <grammar src="builtin:dtmf/digits" type="application/grammar-xml"/>
+
+        <filled>
+            <if cond="ContinueVotingField == '1'">
+                <goto next="#SeedSelection"/>
+                <else/>
+                <prompt>Thanks for your vote, goodbye.</prompt>
+                <disconnect/>
+            </if>
+        </filled>
+    </field>
+</form>
+
+
+<form id="Feedback">
+    <record name="feedback" beep="true" dtmfterm="#" finalsilence="1000ms" maxtime="60s">
+        <prompt>
+                Please give your valuable opinions and press the pound key to finish.
+        </prompt>
+    </record>
+    <filled>
+        <prompt>
+                Thank you for your feedback, wish you a happy life goodbye.
+        </prompt>
+        <disconnect/>
+    </filled>
+</form>
+
+</vxml>
