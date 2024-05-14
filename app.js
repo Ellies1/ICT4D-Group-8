@@ -55,7 +55,7 @@ app.post('/seeds', express.json(), async (req, res) => {
         <vxml version="2.1">
           <form>
             <block>
-              <var name="updatedScore" expr="'123'" />
+              <var name="updatedScore" expr="'${updatedSeed.score}'" />
               <return namelist="updatedScore" />
             </block>
           </form>
