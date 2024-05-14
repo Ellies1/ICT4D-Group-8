@@ -21,7 +21,8 @@ db.once('open', function() {
 
 const seedSchema = new mongoose.Schema({
   name: String,
-  description: String
+  description: String,
+  score: { type: Number, default: 0 }
 });
 
 const Seed = mongoose.model('Seed', seedSchema);
@@ -36,6 +37,27 @@ app.get('/seeds', async (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
+
+app.post('/seeds/score', express.json(), async (req, res) => {
+  const { selectedSeedName, rating } = req.body;
+  try {
+    const updatedSeed = await Seed.findOneAndUpdate(
+      { name: selectedSeedName },
+      { $inc: { score: parseInt(rating) } },
+      { new: true }
+    );
+    if (updatedSeed) {
+      res.json({ message: `Score updated for ${selectedSeedName}. New score: ${updatedSeed.score}` });
+    } else {
+      res.status(404).send('Seed not found');
+    }
+  } catch (error) {
+    console.error('Error updating seed score:', error);
+    res.status(500).send('Server Error');
+  }
+});
+
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);

@@ -11,11 +11,11 @@
             </prompt>
             <grammar src="builtin:dtmf/digits" type="application/grammar-xml"/>
         </field>
-        
+
         <filled>
             <if cond="languageChoice == '1'">
                 <goto next="#MainMenu_fr"/>
-            <else/>
+                <else/>
                 <goto next="#MainMenu_en"/>
             </if>
         </filled>
@@ -38,7 +38,7 @@
         <filled>
             <if cond="choice == '1'">
                 <goto next="#SeedSelection_fr"/>
-            <elseif cond="choice == '2'"/>
+                <elseif cond="choice == '2'"/>
                 <goto next="#Feedback_fr"/>
             </if>
         </filled>
@@ -55,9 +55,9 @@
         <filled>
             <if cond="seedChoice == '1'">
                 <assign name="selectedSeedName" expr="'sorgho'"/>
-            <elseif cond="seedChoice == '2'"/>
+                <elseif cond="seedChoice == '2'"/>
                 <assign name="selectedSeedName" expr="'maïs'"/>
-            <else/>
+                <else/>
                 <assign name="selectedSeedName" expr="'arachides'"/>
             </if>
             <goto next="#RatingForm_fr"/>
@@ -67,145 +67,159 @@
     <form id="RatingForm_fr" xml:lang="fr-fr">
         <field name="rating">
             <prompt>
-                Veuillez évaluer la qualité de la semence <value expr="selectedSeedName"/> de 1 à 9.
+                Veuillez évaluer la qualité de la semence <value expr="selectedSeedName"/>
+ de 1 à 9.
             </prompt>
             <grammar src="builtin:dtmf/digits" type="application/grammar-xml"/>
 
             <filled>
                 <prompt>
-                    Vous avez évalué <value expr="selectedSeedName"/> pour <value expr="rating"/> points.
-                </prompt>
-                <goto next="#ContinueVotingField_fr"/>
-            </filled>
-        </field>
-
-        <field name="ContinueVotingField_fr">
-            <prompt>
-                Appuyez sur 1 pour continuer à voter et évaluer, et sur 0 pour terminer le vote.
-            </prompt>
-            <grammar src="builtin:dtmf/digits" type="application/grammar-xml"/>
-
-            <filled>
-                <if cond="ContinueVotingField == '1'">
-                    <goto next="#SeedSelection_fr"/>
-                <else/>
-                    <prompt>Merci pour votre vote, au revoir.</prompt>
-                    <disconnect/>
-                </if>
-            </filled>
-        </field>
-    </form>
-
-    <form id="Feedback_fr" xml:lang="fr-fr">
-        <record name="feedback" beep="true" dtmfterm="#" finalsilence="1000ms" maxtime="60s">
-            <prompt>
-                Veuillez donner vos précieuses opinions et appuyez sur la touche dièse pour terminer.
-            </prompt>
-        </record>
-        <filled>
-            <prompt>
-                Merci pour votre avis, nous vous souhaitons une vie heureuse, au revoir.
-            </prompt>
-            <disconnect/>
-        </filled>
-    </form>
-
-   
-   <form id="MainMenu_en">
-        <block>
-            <prompt>
-                Welcome to the Mali seed quality voting system.
-            </prompt>
-        </block>
-
-        <field name="choice">
-            <prompt>
-                If you want to vote, please press 1. If you want to give feedback, press 2.
-            </prompt>
-            <grammar src="builtin:dtmf/digits" type="application/grammar-xml"/>
-        </field>
-
-        <filled>
-            <if cond="choice == '1'">
-                <goto next="#SeedSelection"/>
-                <elseif cond="choice == '2'"/>
-                <goto next="#Feedback"/>
-            </if>
-        </filled>
-    </form>
-
-    <form id="SeedSelection">
-        <data name="seedData" src="https://peaceful-basin-39224-6cbcd8a1bd04.herokuapp.com/seeds"/>
-        <field name="seedChoice">
-            <prompt>
-                Please select one of the following seeds. 
-                For No. 1 <value expr="seedData[0].name"/>, please press 1.
-                For No. 2 <value expr="seedData[1].name"/>, please press 2.
-                For No. 3 <value expr="seedData[2].name"/>, please press 3.
-            </prompt>
-            <grammar src="builtin:dtmf/digits" type="application/grammar-xml"/>
-        </field>
-
-        <filled>
-            <if cond="seedChoice == '1'">
-                <assign name="selectedSeedName" expr="'sorghum'"/>
-                <elseif cond="seedChoice == '2'"/>
-                <assign name="selectedSeedName" expr="'corn'"/>
-                <else/>
-                <assign name="selectedSeedName" expr="'peanuts'"/>
-            </if>
-            <goto next="#RatingForm"/>
-        </filled>
-    </form>
-
-    <form id="RatingForm">
-        <field name="rating">
-            <prompt>
-            Please rate the quality of this seed <value expr="selectedSeedName"/>
- from 1 to 9.
-            </prompt>
-            <grammar src="builtin:dtmf/digits" type="application/grammar-xml"/>
-
-            <filled>
-                <prompt>
-                You rated <value expr="selectedSeedName"/>
- for <value expr="rating"/>
+                    Vous avez évalué <value expr="selectedSeedName"/>
+ pour <value expr="rating"/>
  points.
             </prompt>
-            <goto next="#ContinueVotingField"/>
+            <goto next="#ContinueVotingField_fr"/>
         </filled>
     </field>
 
-    <field name="ContinueVotingField">
+    <field name="ContinueVotingField_fr">
         <prompt>
-            Please press 1 to continue voting and score, and press 0 to end voting.
+                Appuyez sur 1 pour continuer à voter et évaluer, et sur 0 pour terminer le vote.
         </prompt>
         <grammar src="builtin:dtmf/digits" type="application/grammar-xml"/>
 
         <filled>
             <if cond="ContinueVotingField == '1'">
-                <goto next="#SeedSelection"/>
+                <goto next="#SeedSelection_fr"/>
                 <else/>
-                <prompt>Thanks for your vote, goodbye.</prompt>
+                <prompt>Merci pour votre vote, au revoir.</prompt>
                 <disconnect/>
             </if>
         </filled>
     </field>
 </form>
 
-
-<form id="Feedback">
+<form id="Feedback_fr" xml:lang="fr-fr">
     <record name="feedback" beep="true" dtmfterm="#" finalsilence="1000ms" maxtime="60s">
         <prompt>
-                Please give your valuable opinions and press the pound key to finish.
+                Veuillez donner vos précieuses opinions et appuyez sur la touche dièse pour terminer.
         </prompt>
     </record>
     <filled>
         <prompt>
-                Thank you for your feedback, wish you a happy life goodbye.
+                Merci pour votre avis, nous vous souhaitons une vie heureuse, au revoir.
         </prompt>
         <disconnect/>
     </filled>
+</form>
+
+
+<form id="MainMenu_en">
+    <block>
+        <prompt>
+                Welcome to the Mali seed quality voting system.
+        </prompt>
+    </block>
+
+    <field name="choice">
+        <prompt>
+                If you want to vote, please press 1. If you want to give feedback, press 2.
+        </prompt>
+        <grammar src="builtin:dtmf/digits" type="application/grammar-xml"/>
+    </field>
+
+    <filled>
+        <if cond="choice == '1'">
+            <goto next="#SeedSelection"/>
+            <elseif cond="choice == '2'"/>
+            <goto next="#Feedback"/>
+        </if>
+    </filled>
+</form>
+
+<form id="SeedSelection">
+    <data name="seedData" src="https://peaceful-basin-39224-6cbcd8a1bd04.herokuapp.com/seeds"/>
+    <field name="seedChoice">
+        <prompt>
+                Please select one of the following seeds. 
+                For No. 1 <value expr="seedData[0].name"/>
+, please press 1.
+                For No. 2 <value expr="seedData[1].name"/>
+, please press 2.
+                For No. 3 <value expr="seedData[2].name"/>
+, please press 3.
+</prompt>
+<grammar src="builtin:dtmf/digits" type="application/grammar-xml"/>
+</field>
+
+<filled>
+<if cond="seedChoice == '1'">
+    <assign name="selectedSeedName" expr="'sorghum'"/>
+    <elseif cond="seedChoice == '2'"/>
+    <assign name="selectedSeedName" expr="'corn'"/>
+    <else/>
+    <assign name="selectedSeedName" expr="'peanuts'"/>
+</if>
+<goto next="#RatingForm"/>
+</filled>
+</form>
+
+<form id="RatingForm">
+<field name="rating">
+<prompt>
+        Please rate the quality of this seed <value expr="selectedSeedName"/>
+ from 1 to 9.
+</prompt>
+<grammar src="builtin:dtmf/digits" type="application/grammar-xml"/>
+
+<filled>
+    <prompt>
+            You rated <value expr="selectedSeedName"/>
+ for <value expr="rating"/>
+ points.
+</prompt>
+<subdialog src="https://peaceful-basin-39224-6cbcd8a1bd04.herokuapp.com/seeds/score" method="post" namelist="selectedSeedName rating">
+    <filled>
+        <prompt>
+                    Current total score: <value expr="_subdialog.score"/>
+        </prompt>
+        <goto next="#ContinueVotingField"/>
+    </filled>
+</subdialog>
+</filled>
+</field>
+
+
+<field name="ContinueVotingField">
+<prompt>
+            Please press 1 to continue voting and score, and press 0 to end voting.
+</prompt>
+<grammar src="builtin:dtmf/digits" type="application/grammar-xml"/>
+
+<filled>
+<if cond="ContinueVotingField == '1'">
+    <goto next="#SeedSelection"/>
+    <else/>
+    <prompt>Thanks for your vote, goodbye.</prompt>
+    <disconnect/>
+</if>
+</filled>
+</field>
+</form>
+
+
+<form id="Feedback">
+<record name="feedback" beep="true" dtmfterm="#" finalsilence="1000ms" maxtime="60s">
+<prompt>
+                Please give your valuable opinions and press the pound key to finish.
+</prompt>
+</record>
+<filled>
+<prompt>
+                Thank you for your feedback, wish you a happy life goodbye.
+</prompt>
+<disconnect/>
+</filled>
 </form>
 
 </vxml>
