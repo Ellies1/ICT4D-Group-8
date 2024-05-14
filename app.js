@@ -39,7 +39,7 @@ app.get('/seeds', async (req, res) => {
 });
 
 
-app.post('/seeds', express.json(), async (req, res) => {
+app.post('/seeds', express.json(), async (req, res) => {2
   const { selectedSeedName, rating } = req.body;
   try {
     const updatedSeed = await Seed.findOneAndUpdate(
