@@ -183,8 +183,8 @@
 
 
 <subdialog src="https://peaceful-basin-39224-6cbcd8a1bd04.herokuapp.com/seeds" method="post" namelist="selectedSeedName rating">
-  <filled>
-    <prompt>The current point is <value expr="updatedScore"/> </prompt>
+  <filled namelist="updatedScore">
+    <prompt>The current point is <value expr="updatedScore"/> yes! </prompt>
     <goto next="#ContinueVotingField"/>
   </filled>
 </subdialog>
