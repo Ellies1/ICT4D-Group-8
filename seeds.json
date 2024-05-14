@@ -1,14 +1,18 @@
 [
-  {
-      "name": "Sorghum",
-      "description": "A versatile crop that can be used for grain, fiber, and fodder."
-  },
-  {
-      "name": "Corn",
-      "description": "Widely grown and consumed all over the world."
-  },
-  {
-      "name": "Peanuts",
-      "description": "A legume crop grown mainly for its edible seeds."
-  }
-]
+    {
+        "name": "Sorghum",
+        "description": "A versatile crop that can be used for grain, fiber, and fodder.",
+        "score": 0
+    },
+    {
+        "name": "Corn",
+        "description": "Widely grown and consumed all over the world.",
+        "score": 0
+    },
+    {
+        "name": "Peanuts",
+        "description": "A legume crop grown mainly for its edible seeds.",
+        "score": 0
+    }
+  ]
+  

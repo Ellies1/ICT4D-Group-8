@@ -178,14 +178,8 @@
  for <value expr="rating"/>
  points.
 </prompt>
-<subdialog src="https://peaceful-basin-39224-6cbcd8a1bd04.herokuapp.com/seeds/score" method="post" namelist="selectedSeedName rating">
-    <filled>
-        <prompt>
-                    Current total score: <value expr="_subdialog.score"/>
-        </prompt>
-        <goto next="#ContinueVotingField"/>
-    </filled>
-</subdialog>
+<submit next="https://peaceful-basin-39224-6cbcd8a1bd04.herokuapp.com/seeds" method="post" namelist="selectedSeedName rating"/>
+<goto next="#ContinueVotingField"/>
 </filled>
 </field>
 
@@ -197,7 +191,7 @@
 <grammar src="builtin:dtmf/digits" type="application/grammar-xml"/>
 
 <filled>
-<if cond="ContinueVotingField == '1'">
+<if cond="ContinueVotingField == '1'">1
     <goto next="#SeedSelection"/>
     <else/>
     <prompt>Thanks for your vote, goodbye.</prompt>
