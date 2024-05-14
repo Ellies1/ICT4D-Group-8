@@ -49,7 +49,8 @@ app.post('/seeds', express.json(), async (req, res) => {
       { new: true }
     );
     if (updatedSeed) {
-      res.json({ message: `Score updated for ${selectedSeedName}. New score: ${updatedSeed.score}` });
+      res.set('Content-Type', 'text/plain');
+      res.send(`${updatedSeed.score}`);
     } else {
       res.status(404).send('Seed not found');
     }

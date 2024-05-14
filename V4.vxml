@@ -177,12 +177,18 @@
             You rated <value expr="selectedSeedName"/>
  for <value expr="rating"/>
  points.
-</prompt>
-<submit next="https://peaceful-basin-39224-6cbcd8a1bd04.herokuapp.com/seeds" method="post" namelist="selectedSeedName rating"/>
-<goto next="#ContinueVotingField"/>
+    </prompt>
 </filled>
 </field>
 
+
+<filled>
+<submit next="https://peaceful-basin-39224-6cbcd8a1bd04.herokuapp.com/seeds" method="post" namelist="selectedSeedName rating" />
+</filled>
+
+<catch event="submit.success">
+    <goto next="#ContinueVotingField"/>
+</catch>
 
 <field name="ContinueVotingField">
 <prompt>
