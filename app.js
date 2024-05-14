@@ -49,8 +49,18 @@ app.post('/seeds', express.json(), async (req, res) => {
       { new: true }
     );
     if (updatedSeed) {
-      res.set('Content-Type', 'text/plain');
-      res.send(`${updatedSeed.score}`);
+      res.set('Content-Type', 'application/voicexml+xml');
+      res.send(`
+        <?xml version="1.0" encoding="UTF-8"?>
+        <vxml version="2.1">
+          <form>
+            <block>
+              <var name="updatedScore" expr="'${updatedSeed.score}'" />
+              <return namelist="updatedScore" />
+            </block>
+          </form>
+        </vxml>
+      `);
     } else {
       res.status(404).send('Seed not found');
     }

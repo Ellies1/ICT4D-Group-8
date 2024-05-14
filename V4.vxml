@@ -182,13 +182,15 @@
 </field>
 
 
-<filled>
-<submit next="https://peaceful-basin-39224-6cbcd8a1bd04.herokuapp.com/seeds" method="post" namelist="selectedSeedName rating" />
-</filled>
-
-<catch event="submit.success">
+<subdialog src="https://peaceful-basin-39224-6cbcd8a1bd04.herokuapp.com/seeds" method="post" namelist="selectedSeedName rating">
+  <filled>
+    <prompt>The current point is <value expr="updatedScore"/> </prompt>
     <goto next="#ContinueVotingField"/>
-</catch>
+  </filled>
+</subdialog>
+
+
+
 
 <field name="ContinueVotingField">
 <prompt>
