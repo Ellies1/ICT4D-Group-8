@@ -165,39 +165,46 @@
 </form>
 
 <form id="RatingForm">
-    <field name="rating">
-        <prompt>
-            Please rate the quality of this seed <value expr="selectedSeedName"/> from 1 to 9.
-        </prompt>
-        <grammar src="builtin:dtmf/digits" type="application/grammar-xml"/>
-        <filled>
-            <prompt>
-                You rated <value expr="selectedSeedName"/> for <value expr="rating"/> points.
-            </prompt>
-            <subdialog name="seedUpdate" src="https://peaceful-basin-39224-6cbcd8a1bd04.herokuapp.com/seeds" method="post" namelist="selectedSeedName rating">
-                <filled>
-                    <var name="updatedScore" expr="seedUpdate.updatedScore"/>
-                    <prompt>The current point is <value expr="updatedScore"/> </prompt>
-                    <goto nextitem/>
-                </filled>
-            </subdialog>
-        </filled>
-    </field>
+<field name="rating">
+<prompt>
+        Please rate the quality of this seed <value expr="selectedSeedName"/>
+ from 1 to 9.
+</prompt>
+<grammar src="builtin:dtmf/digits" type="application/grammar-xml"/>
 
-    <field name="ContinueVotingField">
-        <prompt>
+<filled>
+    <prompt>
+            You rated <value expr="selectedSeedName"/>
+ for <value expr="rating"/>
+ points.
+    </prompt>
+</filled>
+</field>
+
+<subdialog name="seedUpdate" src="https://peaceful-basin-39224-6cbcd8a1bd04.herokuapp.com/seeds" method="post" namelist="selectedSeedName rating">
+  <filled namelist="updatedScore">
+    <prompt>The current point is <value expr="seedUpdate.updatedScore"/> yes! </prompt>
+    <goto next="#ContinueVotingField"/>
+  </filled>
+</subdialog>
+</form>
+
+<form id="ContinueVotingField">
+<field name="whatever">
+<prompt>
             Please press 1 to continue voting and score, and press 0 to end voting.
-        </prompt>
-        <grammar src="builtin:dtmf/digits" type="application/grammar-xml"/>
-        <filled>
-            <if cond="ContinueVotingField == '1'">
-                <goto next="#SeedSelection"/>
-                <else/>
-                <prompt>Thanks for your vote, goodbye.</prompt>
-                <disconnect/>
-            </if>
-        </filled>
-    </field>
+</prompt>
+<grammar src="builtin:dtmf/digits" type="application/grammar-xml"/>
+
+<filled>
+<if cond="whatever == '1'">1
+    <goto next="#SeedSelection"/>
+    <else/>
+    <prompt>Thanks for your vote, goodbye.</prompt>
+    <disconnect/>
+</if>
+</filled>
+</field>
 </form>
 
 
